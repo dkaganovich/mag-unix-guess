@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define MAX 1000000000
 
@@ -10,7 +11,8 @@ void NumberSourceInit(struct TNumberSource* self, const char* path) {
     self->Pos = 0;
     self->Data = NULL;
 
-    srand(42);
+    // srand(42);
+    srand(time(NULL));
 
     if (path) {
         FILE* f;

@@ -1,13 +1,20 @@
-TARGET = guess-server
+SERVER_TGT = guess-server
+SERVER_SRCS = io.c numbers.c server.c
+CLIENT_TGT = guess-client
+CLIENT_SRCS = io.c client.c
 CFLAGS = -Wall -Wextra --std=gnu99 -g -O2 -MD -MP
-SRCS = io.c numbers.c server.c
 
-all: $(TARGET)
+all: $(SERVER_TGT) $(CLIENT_TGT)
+.PHONY: all
 
-$(TARGET): $(SRCS:%.c=%.o)
+$(SERVER_TGT): $(SERVER_SRCS:%.c=%.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-clean:
-	rm -f $(TARGET) $(SRCS:%.c=%.o) $(SRCS:%.c=%.d)
+$(CLIENT_TGT): $(CLIENT_SRCS:%.c=%.o)
+	$(CC) $(CFLAGS) -o $@ $^
 
--include $(SRCS:%.c=%.d)
+.PHONY: clean
+clean:
+	rm -f $(SERVER_TGT) $(CLIENT_TGT) *.o *.d
+
+-include *.d
