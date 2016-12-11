@@ -1,0 +1,5 @@
+guess-server
+guess-client
+guess.sock
+*.o
+*.d
